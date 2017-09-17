@@ -24,5 +24,5 @@ document.onready=function() {
 			        winHeight = document.documentElement.clientHeight;
 			        winWidth = document.documentElement.clientWidth;
 			    }
-				$(".img-responsive").css("width",winWidth).css("height",winHeight).css("opacity","0.5");
+				$(".img-responsive").css("width",winWidth).css("height",winHeight);
 			}

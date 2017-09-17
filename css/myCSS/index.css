@@ -5,6 +5,28 @@
 body{
 	background-color: #787878; 
 }
-。img-responsive{
-
+.img-responsive{
+	z-index: -100;
+}
+.main_container{
+	width: 70%;
+	height: 70%;
+	position: absolute;
+	left: 15%;
+	top: 15%;
+	opacity: 0.8;
+	border: 1px solid lightgray;
+}
+.header_container{
+	width: 10%;
+	height: auto;
+	position: absolute;
+	left: 25%;
+	top: 10%;
+	z-index: 1;
+}
+.img-circle{
+	position: relative;
+	width: 100%;
+	height: auto;
 }
