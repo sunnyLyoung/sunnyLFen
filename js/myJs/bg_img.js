@@ -4,7 +4,7 @@ function run() {
         var engine = new RainyDay({
             image: this
         });
-       engine.rain([[3, 2, 2]], 100);
+       engine.rain([[3, 2, 2]], 10);
     };
     image.crossOrigin = 'anonymous';
    image.src= 'img/bj_img/bg.jpg';
@@ -37,6 +37,6 @@ var setBgImgSize = function() {
 }
 
 $(function(){
-    run();
+    setTimeout("run()",1500);
     setInterval("setBgImgSize()",50);
 });
