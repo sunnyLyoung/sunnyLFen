@@ -3,13 +3,10 @@
  * @param options options element with script parameters
  * @param canvas to be used (if not defined a new one will be created)
  */
-
 function RainyDay(options, canvas) {
-
 	if (this === window) { //if *this* is the window object, start over with a *new* object
 		return new RainyDay(options, canvas);
 	}
-
 	this.img = options.image;
 	var defaults = {
 		opacity: 1,
@@ -32,7 +29,6 @@ function RainyDay(options, canvas) {
 		top: 0,
 		left: 0
 	};
-
 	// add the defaults to options
 	for (var option in defaults) {
 		if (typeof options[option] === 'undefined') {
@@ -40,24 +36,19 @@ function RainyDay(options, canvas) {
 		}
 	}
 	this.options = options;
-
 	this.drops = [];
-
 	// prepare canvas elements
 	this.canvas = canvas || this.prepareCanvas();
 	this.prepareBackground();
 	this.prepareGlass();
-
 	// assume defaults
 	this.reflection = this.REFLECTION_MINIATURE;
 	this.trail = this.TRAIL_DROPS;
 	this.gravity = this.GRAVITY_NON_LINEAR;
 	this.collision = this.COLLISION_SIMPLE;
-
 	// set polyfill of requestAnimationFrame
 	this.setRequestAnimFrame();
 }
-
 /**
  * Create the main canvas over a given element
  * @returns HTMLElement the canvas
@@ -75,7 +66,6 @@ RainyDay.prototype.prepareCanvas = function() {
 	}
 	return canvas;
 };
-
 RainyDay.prototype.setResizeHandler = function() {
 	// use setInterval if oneresize event already use by other.
 	if (window.onresize !== null) {
@@ -85,7 +75,6 @@ RainyDay.prototype.setResizeHandler = function() {
 		window.onorientationchange = this.checkSize.bind(this);
 	}
 };
-
 /**
  * Periodically check the size of the underlying element
  */
@@ -98,7 +87,6 @@ RainyDay.prototype.checkSize = function() {
 	var canvasHeight = this.canvas.height;
 	var canvasOffsetLeft = this.canvas.offsetLeft;
 	var canvasOffsetTop = this.canvas.offsetTop;
-
 	if (canvasWidth !== clientWidth || canvasHeight !== clientHeight) {
 		this.canvas.width = clientWidth;
 		this.canvas.height = clientHeight;
@@ -112,7 +100,6 @@ RainyDay.prototype.checkSize = function() {
 		this.canvas.offsetTop = clientOffsetTop;
 	}
 };
-
 /**
  * Start animation loop
  */
@@ -131,7 +118,6 @@ RainyDay.prototype.animateDrops = function() {
 	this.drops = newDrops;
 	window.requestAnimFrame(this.animateDrops.bind(this));
 };
-
 /**
  * Polyfill for requestAnimationFrame
  */
@@ -146,7 +132,6 @@ RainyDay.prototype.setRequestAnimFrame = function() {
 			};
 	})();
 };
-
 /**
  * Create the helper canvas for rendering raindrop reflections.
  */
@@ -157,7 +142,6 @@ RainyDay.prototype.prepareReflections = function() {
 	var ctx = this.reflected.getContext('2d');
 	ctx.drawImage(this.img, this.options.crop[0], this.options.crop[1], this.options.crop[2], this.options.crop[3], 0, 0, this.reflected.width, this.reflected.height);
 };
-
 /**
  * Create the glass canvas.
  */
@@ -167,7 +151,6 @@ RainyDay.prototype.prepareGlass = function() {
 	this.glass.height = this.canvas.height;
 	this.context = this.glass.getContext('2d');
 };
-
 /**
  * Main function for starting rain rendering.
  * @param presets list of presets to be applied
@@ -178,18 +161,13 @@ RainyDay.prototype.rain = function(presets, speed) {
 	if (this.reflection !== this.REFLECTION_NONE) {
 		this.prepareReflections();
 	}
-
 	this.animateDrops();
-
 	// animation
 	this.presets = presets;
-
 	this.PRIVATE_GRAVITY_FORCE_FACTOR_Y = (this.options.fps * 0.001) / 25;
 	this.PRIVATE_GRAVITY_FORCE_FACTOR_X = ((Math.PI / 2) - this.options.gravityAngle) * (this.options.fps * 0.001) / 50;
-
 	// prepare gravity matrix
 	if (this.options.enableCollisions) {
-
 		// calculate max radius of a drop to establish gravity matrix resolution
 		var maxDropRadius = 0;
 		for (var i = 0; i < presets.length; i++) {
@@ -197,7 +175,6 @@ RainyDay.prototype.rain = function(presets, speed) {
 				maxDropRadius = Math.floor(presets[i][0] + presets[i][1]);
 			}
 		}
-
 		if (maxDropRadius > 0) {
 			// initialize the gravity matrix
 			var mwi = Math.ceil(this.canvas.width / maxDropRadius);
@@ -207,13 +184,11 @@ RainyDay.prototype.rain = function(presets, speed) {
 			this.options.enableCollisions = false;
 		}
 	}
-
 	for (var i = 0; i < presets.length; i++) {
 		if (!presets[i][3]) {
 			presets[i][3] = -1;
 		}
 	}
-
 	var lastExecutionTime = 0;
 	this.addDropCallback = function() {
 		var timestamp = new Date().getTime();
@@ -249,7 +224,6 @@ RainyDay.prototype.rain = function(presets, speed) {
 	}
 		.bind(this);
 };
-
 /**
  * Adds a new raindrop to the animation.
  * @param drop drop object to be added to the animation
@@ -263,7 +237,6 @@ RainyDay.prototype.putDrop = function(drop) {
 		this.drops.push(drop);
 	}
 };
-
 /**
  * Clear the drop and remove from the list if applicable.
  * @drop to be cleared
@@ -280,7 +253,6 @@ RainyDay.prototype.clearDrop = function(drop, force) {
 	}
 	return result;
 };
-
 /**
  * Defines a new raindrop object.
  * @param rainyday reference to the parent object
@@ -289,7 +261,6 @@ RainyDay.prototype.clearDrop = function(drop, force) {
  * @param min minimum size of a drop
  * @param base base value for randomizing drop size
  */
-
 function Drop(rainyday, centerX, centerY, min, base) {
 	this.x = Math.floor(centerX);
 	this.y = Math.floor(centerY);
@@ -298,7 +269,6 @@ function Drop(rainyday, centerX, centerY, min, base) {
 	this.context = rainyday.context;
 	this.reflection = rainyday.reflected;
 }
-
 /**
  * Draws a raindrop on canvas at the current position.
  */
@@ -327,18 +297,13 @@ Drop.prototype.draw = function() {
 		this.context.arc(this.x, this.y, this.r * 0.9, 0, Math.PI * 2, true);
 		this.context.closePath();
 	}
-
 	this.context.clip();
-
 	this.r = orgR;
-
 	if (this.rainyday.reflection) {
 		this.rainyday.reflection(this);
 	}
-
 	this.context.restore();
 };
-
 /**
  * Clears the raindrop region.
  * @param force force stop
@@ -356,7 +321,6 @@ Drop.prototype.clear = function(force) {
 	}
 	return false;
 };
-
 /**
  * Moves the raindrop to a new position according to the gravity.
  */
@@ -376,14 +340,12 @@ Drop.prototype.animate = function() {
 	}
 	return !stopped || this.terminate;
 };
-
 /**
  * TRAIL function: no trail at all
  */
 RainyDay.prototype.TRAIL_NONE = function() {
 	// nothing going on here
 };
-
 /**
  * TRAIL function: trail of small drops (default)
  * @param drop raindrop object
@@ -394,7 +356,6 @@ RainyDay.prototype.TRAIL_DROPS = function(drop) {
 		this.putDrop(new Drop(this, drop.x + (Math.random() * 2 - 1) * Math.random(), drop.y - drop.r - 5, Math.ceil(drop.r / 5), 0));
 	}
 };
-
 /**
  * TRAIL function: trail of unblurred image
  * @param drop raindrop object
@@ -407,7 +368,6 @@ RainyDay.prototype.TRAIL_SMUDGE = function(drop) {
 	}
 	this.context.drawImage(this.clearbackground, x, y, drop.r, 2, x, y, drop.r, 2);
 };
-
 /**
  * GRAVITY function: no gravity at all
  * @returns Boolean true if the animation is stopped
@@ -415,7 +375,6 @@ RainyDay.prototype.TRAIL_SMUDGE = function(drop) {
 RainyDay.prototype.GRAVITY_NONE = function() {
 	return true;
 };
-
 /**
  * GRAVITY function: linear gravity
  * @param drop raindrop object
@@ -425,7 +384,6 @@ RainyDay.prototype.GRAVITY_LINEAR = function(drop) {
 	if (this.clearDrop(drop)) {
 		return true;
 	}
-
 	if (drop.yspeed) {
 		drop.yspeed += this.PRIVATE_GRAVITY_FORCE_FACTOR_Y * Math.floor(drop.r);
 		drop.xspeed += this.PRIVATE_GRAVITY_FORCE_FACTOR_X * Math.floor(drop.r);
@@ -433,12 +391,10 @@ RainyDay.prototype.GRAVITY_LINEAR = function(drop) {
 		drop.yspeed = this.PRIVATE_GRAVITY_FORCE_FACTOR_Y;
 		drop.xspeed = this.PRIVATE_GRAVITY_FORCE_FACTOR_X;
 	}
-
 	drop.y += drop.yspeed;
 	drop.draw();
 	return false;
 };
-
 /**
  * GRAVITY function: non-linear gravity (default)
  * @param drop raindrop object
@@ -448,7 +404,6 @@ RainyDay.prototype.GRAVITY_NON_LINEAR = function(drop) {
 	if (this.clearDrop(drop)) {
 		return true;
 	}
-
 	if (drop.collided) {
 		drop.collided = false;
 		drop.seed = Math.floor(drop.r * Math.random() * this.options.fps);
@@ -459,9 +414,7 @@ RainyDay.prototype.GRAVITY_NON_LINEAR = function(drop) {
 		drop.skipping = drop.skipping === false ? true : false;
 		drop.slowing = true;
 	}
-
 	drop.seed--;
-
 	if (drop.yspeed) {
 		if (drop.slowing) {
 			drop.yspeed /= 1.1;
@@ -469,7 +422,6 @@ RainyDay.prototype.GRAVITY_NON_LINEAR = function(drop) {
 			if (drop.yspeed < this.PRIVATE_GRAVITY_FORCE_FACTOR_Y) {
 				drop.slowing = false;
 			}
-
 		} else if (drop.skipping) {
 			drop.yspeed = this.PRIVATE_GRAVITY_FORCE_FACTOR_Y;
 			drop.xspeed = this.PRIVATE_GRAVITY_FORCE_FACTOR_X;
@@ -481,18 +433,14 @@ RainyDay.prototype.GRAVITY_NON_LINEAR = function(drop) {
 		drop.yspeed = this.PRIVATE_GRAVITY_FORCE_FACTOR_Y;
 		drop.xspeed = this.PRIVATE_GRAVITY_FORCE_FACTOR_X;
 	}
-
 	if (this.options.gravityAngleVariance !== 0) {
 		drop.xspeed += ((Math.random() * 2 - 1) * drop.yspeed * this.options.gravityAngleVariance);
 	}
-
 	drop.y += drop.yspeed;
 	drop.x += drop.xspeed;
-
 	drop.draw();
 	return false;
 };
-
 /**
  * Utility function to return positive min value
  * @param val1 first number
@@ -515,7 +463,6 @@ RainyDay.prototype.positiveMin = function(val1, val2) {
 	}
 	return result <= 0 ? 1 : result;
 };
-
 /**
  * REFLECTION function: no reflection at all
  */
@@ -523,7 +470,6 @@ RainyDay.prototype.REFLECTION_NONE = function() {
 	this.context.fillStyle = this.options.fillStyle;
 	this.context.fill();
 };
-
 /**
  * REFLECTION function: miniature reflection (default)
  * @param drop raindrop object
@@ -537,7 +483,6 @@ RainyDay.prototype.REFLECTION_MINIATURE = function(drop) {
 	var dy = Math.max(drop.y - 1.1 * drop.r, 0);
 	this.context.drawImage(this.reflected, sx, sy, sw, sh, dx, dy, drop.r * 2, drop.r * 2);
 };
-
 /**
  * COLLISION function: default collision implementation
  * @param drop one of the drops colliding
@@ -554,11 +499,9 @@ RainyDay.prototype.COLLISION_SIMPLE = function(drop, collisions) {
 		}
 		item = item.next;
 	}
-
 	if (!drop2) {
 		return;
 	}
-
 	// rename so that we're dealing with low/high drops
 	var higher,
 		lower;
@@ -569,7 +512,6 @@ RainyDay.prototype.COLLISION_SIMPLE = function(drop, collisions) {
 		higher = drop2;
 		lower = drop;
 	}
-
 	this.clearDrop(lower);
 	// force stopping the second drop
 	this.clearDrop(higher, true);

@@ -2,13 +2,20 @@
 	margin: 0px;
 	padding: 0px;
 }
-body{
-	overflow: hidden;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+#background{
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	z-index: 2;
 }
-img {
-    width: 100%;
-    height: 100%;
+#bg_img{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	z-index: -1;
 }
