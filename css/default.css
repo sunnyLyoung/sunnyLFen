@@ -52,8 +52,8 @@ body{
 	font-size: 1.05em;
 	font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", "FontAwesome", sans-serif;
 }
-a{color: #2fa0ec;text-decoration: none;outline: none;}
-a:hover,a:focus{color:#74777b;};
+a{color: #97CBFF;text-decoration: none;outline: none;}
+a:hover,a:focus{color:#ff7575;};
 .htmleaf-container{
 	position: relative;
 	top: 0;
@@ -62,26 +62,6 @@ a:hover,a:focus{color:#74777b;};
 	overflow: hidden;
 	z-index: 99999;
 }
-/*.htmleaf-container{
-	margin: 0 auto;
-	text-align: center;
-	overflow: hidden;
-}
-.htmleaf-content {
-	font-size: 150%;
-	padding: 3em 0;
-}
-
-.htmleaf-content h2 {
-	margin: 0 0 2em;
-	opacity: 0.1;
-}
-
-.htmleaf-content p {
-	margin: 1em 0;
-	padding: 5em 0 0 0;
-	font-size: 0.65em;
-}*/
 .bgcolor-1 { background: #f0efee; }
 .bgcolor-2 { background: #f9f9f9; }
 .bgcolor-3 { background: #e8e8e8; }/*light grey*/
@@ -104,8 +84,9 @@ a:hover,a:focus{color:#74777b;};
 }
 .htmleaf-header h1 {
 	position: absolute;
+	font-family: '隶书';
 	font-weight: 600;
-	font-size: 2em;
+	font-size: 3em;
 	line-height: 1;
 	margin-bottom: 0;
 	color: #fff;
@@ -113,7 +94,7 @@ a:hover,a:focus{color:#74777b;};
 }
 .htmleaf-header h1 span {
 	position: absolute;
-	font-family: 'Raleway';
+	font-family: 'Arial';
 	display: block;
 	font-size: 60%;
 	font-weight: 400;

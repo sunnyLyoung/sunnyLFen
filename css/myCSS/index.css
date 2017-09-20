@@ -25,3 +25,13 @@
 	right: 10px;
 	z-index: 11111111111;
 }
+/* .word_txt_container{
+	position: absolute;
+	top: 100px;
+	left: 100px;
+	z-index: 11111111111;
+}
+p{
+	word-break:break-all;
+	word-wrap:break-word;
+} */
