@@ -35,8 +35,20 @@ var setBgImgSize = function() {
     }
     $("#bg_img").css("width",winWidth).css("height", winHeight);
 }
+var bg_music_controll = function() {
+    var music = document.getElementById("bg_audio"); 
+    if(music.paused){ 
+        music.play(); 
+    }else{ 
+        music.pause(); 
+    } 
+};
 
 $(function(){
     setTimeout("run()",1500);
-    setInterval("setBgImgSize()",50);
+   window.onresize= setBgImgSize;
+   setBgImgSize();
+   $("#bg_audio")[0].volume=0.2;
 });
+
+
