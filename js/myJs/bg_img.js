@@ -43,12 +43,44 @@ var bg_music_controll = function() {
         music.pause(); 
     } 
 };
+var $xmpl = $('#xmpl-3');
+$xmpl.dotdotdot({
+    ellipsis: "\u2026",
+    keep: '.toggle',
+    truncate: "letter",
+    watch: "window",
+    tolerance:4
+})
+// Get the dotdotdot API
+var api = $xmpl.data( 'dotdotdot' );
 
+$xmpl.on(
+    'click',
+    '.toggle',
+    function( e )
+    {
+        e.preventDefault();
+        if ( $xmpl.hasClass('ddd-truncated'))
+        {
+            api.restore();
+            $xmpl.addClass('full-story');
+        }
+        else
+        {
+            $xmpl.removeClass('full-story');
+            api.truncate();
+            api.watch();
+        }
+    }
+);
 $(function(){
     setTimeout("run()",1500);
    window.onresize= setBgImgSize;
    setBgImgSize();
    $("#bg_audio")[0].volume=0.2;
+   $("#bk_tag").click(function() {
+        window.location.href="lover.html";
+   });
 });
 
 
